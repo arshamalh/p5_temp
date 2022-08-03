@@ -12,7 +12,7 @@ export function getBrowser(): Promise<Browser> {
     } else {
       puppeteer
         .connect({
-          browserWSEndpoint: "ws://imdb_browser:3000/"
+          browserWSEndpoint: "ws://BROWSER_SERVICE:3000/"
         })
         .then((opened_browser) => {
           browser = opened_browser;
