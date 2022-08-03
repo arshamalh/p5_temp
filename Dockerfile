@@ -1,3 +1,4 @@
+# TODO: Make it multistage for times that we're skipping downloading puppeteer default browser
 FROM node:18-alpine3.15
 WORKDIR /usr/app
 COPY package.json .

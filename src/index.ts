@@ -24,7 +24,6 @@ app.use(express.json());
 
 app.post("/", (req, res) => {});
 
-// Movie data, most importantly, last scrape date, that you will use to see when was the last scrapping date.
 app.get("/data/:_id", async (req, res) => {
   let data = await getData(req.params._id)
   if (!!data) {
