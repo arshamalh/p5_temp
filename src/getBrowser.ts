@@ -2,6 +2,9 @@ import puppeteer, { Browser } from "puppeteer";
 
 let browser: Browser;
 
+// await page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36");
+// await page.setViewport({ width: 1920, height: 1080 })
+
 // TODO:: IMPORTANT proxy, user agent, referer
 
 // Connect and Reconnect puppeteer to a remote browser
