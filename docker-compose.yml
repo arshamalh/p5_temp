@@ -1,0 +1,48 @@
+version: '3.8'
+services:
+  # Main service, in charge of the scrapping process and express endpoints
+  MY_SCRAPPER:
+    container_name: MY_SCRAPPER
+    build: .
+    depends_on:
+      - MY_SCRAPPER_mongodb
+      - BROWSER_SERVICE
+    restart: unless-stopped
+    ports:
+      - "30:30"
+    environment:
+      - MONGODB_URI=mongodb://USERNAME:PASSWORD@MY_SCRAPPER_mongodb:27017/COLLECTION_NAME?authSource=admin
+      - NUMBER_OF_OPEN_TABS=3
+    networks:
+      - MY_SCRAPPER
+  # Browser service, you can delete it if you're going to use a puppeteer default browser
+  BROWSER_SERVICE:
+    container_name: BROWSER_SERVICE
+    image: browserless/chrome
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    networks:
+      - MY_SCRAPPER
+    environment:
+      - CONNECTION_TIMEOUT=1000000
+  MY_SCRAPPER_mongodb:
+    container_name: MY_SCRAPPER_mongodb
+    image: mongo:4.2.17-bionic
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "USERNAME"
+      MONGO_INITDB_ROOT_PASSWORD: "PASSWORD"
+    ports:
+      - "27017:27017"
+    networks:
+      - MY_SCRAPPER
+    volumes:
+      - MY_SCRAPPER_mongodb_data:/data/db
+
+networks:
+  MY_SCRAPPER:
+    name: MY_SCRAPPER
+
+volumes:
+  MY_SCRAPPER_mongodb_data:
+    name: MY_SCRAPPER_mongodb_data
